@@ -1,0 +1,27 @@
+# Publish only what the site uses. Everything else in this folder
+# (Figma export, source photos, original GIF/MOV files) stays local.
+/*
+!/.gitignore
+!/index.html
+!/404.html
+!/CNAME
+!/robots.txt
+!/sitemap.xml
+!/favicon.ico
+!/css/
+!/js/
+!/fonts/
+!/assets/
+/assets/*
+!/assets/frame.webp
+!/assets/eedjhub.webp
+!/assets/oval.webp
+!/assets/cross.webp
+!/assets/infinity.webp
+!/assets/og.jpg
+!/assets/icon-192.png
+!/assets/apple-touch-icon.png
+!/assets/cv-en.pdf
+!/assets/works/
+!/assets/motion/
+.DS_Store
