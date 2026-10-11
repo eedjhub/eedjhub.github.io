@@ -201,23 +201,30 @@ document.querySelectorAll('[data-slider]').forEach((slider) => {
   const videos = slides.map((slide) => slide.querySelector('video'));
   let index = 0;
   let onScreen = false;
+  let nearScreen = false;
   let pausedByUser = false;
   let playedByUser = false; // with reduced motion, videos start only on a tap
 
+  // Start downloading a video in full ahead of time
+  function warm(video) {
+    if (!video || video.dataset.warm) return;
+    video.dataset.warm = 'true';
+    video.preload = 'auto';
+    if (video.readyState < 2) video.load();
+  }
+
   function sync() {
+    // the current slide loads before the slider scrolls into view, the next one while the current plays
+    if (nearScreen || onScreen) {
+      warm(videos[index]);
+      warm(videos[(index + 1) % videos.length]);
+    }
     videos.forEach((video, i) => {
       if (!video) return;
       const shouldPlay = i === index && onScreen && !pausedByUser && (!reduceMotion.matches || playedByUser);
-      if (shouldPlay) {
-        if (video.preload === 'none') video.preload = 'auto';
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
+      if (shouldPlay) video.play().catch(() => {});
+      else video.pause();
     });
-    // warm up the next slide so switching feels instant
-    const next = videos[(index + 1) % videos.length];
-    if (onScreen && next && next.preload === 'none') next.preload = 'metadata';
   }
 
   function go(to) {
@@ -269,6 +276,11 @@ document.querySelectorAll('[data-slider]').forEach((slider) => {
       onScreen = entries[0].isIntersecting;
       sync();
     }, { threshold: 0.25 }).observe(slider);
+    // about one screen of scrolling before the slider appears
+    new IntersectionObserver((entries) => {
+      nearScreen = entries[0].isIntersecting;
+      sync();
+    }, { rootMargin: '100% 0px' }).observe(slider);
   } else {
     onScreen = true;
   }
