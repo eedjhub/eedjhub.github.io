@@ -118,7 +118,7 @@ p {
   position: relative;
   width: min(100%, 1920px);
   margin: 0 auto;
-  padding-bottom: calc(92 * var(--u));
+  padding-bottom: calc(67 * var(--u));
 }
 
 /* Header and footer links: item widths follow the Figma spacing */
@@ -222,7 +222,7 @@ p {
 }
 
 .marquee--skills {
-  margin-top: calc(67 * var(--u));
+  margin-top: calc(136 * var(--u));
   line-height: 1.5; /* keeps the 48px row from the design at body text size */
   white-space: nowrap;
   opacity: 0.57;
@@ -255,7 +255,7 @@ p {
   grid-template-columns: calc(843 * var(--u)) calc(976 * var(--u));
   column-gap: calc(101 * var(--u));
   row-gap: calc(146 * var(--u));
-  margin-top: calc(90 * var(--u));
+  margin-top: calc(268 * var(--u));
   text-align: center;
 }
 
@@ -318,6 +318,16 @@ p {
 .project__text {
   padding-inline: var(--gutter);
   text-align: center;
+}
+
+/* Ornament between projects: the same infinity flourish as at the bottom */
+.separator {
+  margin-top: calc(var(--mt) * var(--u));
+}
+
+.separator img {
+  width: calc(1455 * var(--u));
+  margin-left: calc(232 * var(--u));
 }
 
 /* Motion slider: one slide at a time, arrows on the sides */
@@ -413,7 +423,7 @@ p {
 .finale {
   position: relative;
   height: calc(801 * var(--u));
-  margin-top: calc(-1 * var(--u));
+  margin-top: calc(-8 * var(--u));
   pointer-events: none;
 }
 
@@ -459,7 +469,8 @@ p {
     padding-inline: 16px;
   }
 
-  .project > * {
+  .project > *,
+  .separator {
     margin-top: max(calc(var(--mt) * var(--u)), 16px);
   }
 
